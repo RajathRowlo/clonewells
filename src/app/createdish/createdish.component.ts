@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DishService } from '../dish.service';
@@ -30,14 +30,28 @@ export class CreatedishComponent implements OnInit {
   }
 
   form = new FormGroup({
-    restaurantname : new FormControl ('',[]),
-    dishid : new FormControl ('',[]),
-    dishname : new FormControl ('',[]),
-    dishtype : new FormControl ('',[]),
-    dishprice : new FormControl ('',[]),
-    speciality : new FormControl ('',[]),
+    restaurantname : new FormControl ('',[
+      Validators.required
+    ]),
+    dishid : new FormControl ('',[
+      Validators.required
+    ]),
+    dishname : new FormControl ('',[
+      Validators.required
+    ]),
+    dishtype : new FormControl ('',[
+      Validators.required
+    ]),
+    dishprice : new FormControl ('',[
+      Validators.required
+    ]),
+    speciality : new FormControl ('',[
+      Validators.required
+    ]),
     dishdescription : new FormControl ('',[]),
-    photo : new FormControl ('',[]),
+    photo : new FormControl ('',[
+      Validators.required
+    ]),
   })
 
   onSubmit(form) {
@@ -47,16 +61,24 @@ export class CreatedishComponent implements OnInit {
     //adding image and other data to FormData object
     this.formData.append('photo',this.file,this.file.name);
     this.formData.append("dishObj",JSON.stringify(dishObj))
-    console.log(this.formData)
+ 
     // console.log(dishObj)
     this.dish.createDish(this.formData).subscribe(
       res => {
-        
-        if(res["message"]=="dish created"){
-          this.toastr.success("dish created sucussfully")
-          this.form.reset();
+        if (res["message"] == "failed") {
+          alert(res["reason"])
+          //navigate to login
+          localStorage.clear()
+          this.router.navigateByUrl("/login")
+          
         }
-
+        
+        else{
+          if(res["message"]=="dish created"){
+            this.toastr.success("dish created sucussfully")
+            this.form.reset();
+          }
+        }
           //this.router.navigateByUrl("/admindashboard")
       },
       err => {

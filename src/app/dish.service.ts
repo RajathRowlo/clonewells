@@ -12,7 +12,7 @@ export class DishService {
   //create dish
   createDish(dishObj): Observable<any>{
     //dishObj["username"]=localStorage.getItem("username")
-    console.log(dishObj)
+    
     return this.hc.post("/dish/createdish",dishObj)
 
   }

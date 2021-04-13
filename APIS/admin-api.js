@@ -49,7 +49,7 @@ adminApiObj.post("/login", errorHandler(async (req,res) => {
 
     //verify user
     let adminFromDb= await Admin.findOne({username:credObj.username})
-    console.log(adminFromDb)
+    
     //if user not existed
     if (adminFromDb==null){
         res.send({message:"Invalid adminname"})
@@ -67,7 +67,7 @@ adminApiObj.post("/login", errorHandler(async (req,res) => {
         //if password is match
         else{
             //create a json token and signit
-            let signedToken=await jwt.sign({username:adminFromDb.username},"secret",{expiresIn: 100})
+            let signedToken=await jwt.sign({username:adminFromDb.username},"secret",{expiresIn: 1000})
 
             //send signed token to the client
             res.send({message:"login succuess", token:signedToken, username:adminFromDb.username})

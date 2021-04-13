@@ -19,15 +19,15 @@ export class EditdishComponent implements OnInit {
     this.ar.params.subscribe(
       res => {
         this.username= res.username
-        console.log(this.username)
+        
         this.dishid= res.dishid
-        console.log(this.dishid)
+        
         let dishObj = {username:this.username, dishid:this.dishid}
-        console.log(dishObj)
+        
         this.dish.getDishId(dishObj).subscribe(
           dish=>{
             this.Dish=dish['message']
-            console.log(this.Dish)
+            
           }
         )
       },
@@ -42,10 +42,19 @@ export class EditdishComponent implements OnInit {
     this.dish.updateDish(formRef.value).subscribe(
 
       res => {
+        if (res["message"] == "failed") {
+          alert(res["reason"])
+          //navigate to login
+          localStorage.clear()
+          this.router.navigateByUrl("/login")
+          
+        }
+        else{
         if(res["message"] ==  "Dish Updated"){
         this.toastr.success("Dish Updated")
         this.router.navigateByUrl("admindashboard/dish")
         }
+      }
       },
       err => {
         this.toastr.error("Error in update")

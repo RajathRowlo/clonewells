@@ -18,6 +18,7 @@ export class PortComponent implements OnInit {
     this.router.navigateByUrl("admindashboard/createdish")
   }
   admindish(){
+    
     this.router.navigateByUrl("admindashboard/dish")
   }
 }

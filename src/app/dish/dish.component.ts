@@ -22,7 +22,17 @@ export class DishComponent implements OnInit {
 
     this.dish.getDish({ "username": this.username }).subscribe(
       res => {
-        this.dishArray = res["message"]
+        if (res["message"] == "failed") {
+          alert(res["reason"])
+          //navigate to login
+          localStorage.clear()
+          this.router.navigateByUrl("/login")
+          
+        }
+        else{
+          this.dishArray = res["message"]
+        }
+        
       },
       err => {
         alert("error in dish")
@@ -41,13 +51,13 @@ export class DishComponent implements OnInit {
 
   delete(dishid, ind) {
     let dishObj = { username: this.username, dishid: dishid }
-    console.log(dishObj)
+    
     this.dish.deleteDishId(dishObj).subscribe(
       dish => {
         if (dish["message"] == "Deleted Succusfully") {
           this.toastr.success(dish["message"])
           this.dishArray.splice(ind, 1)
-          console.log(this.Dish)
+          
         }
         else {
 

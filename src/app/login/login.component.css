@@ -1,6 +1,7 @@
 .login{
-    background-image: url(https://image.freepik.com/free-photo/view-frame-with-pizza-black-background_23-2148308883.jpg);
+    background-image: url("../../assets/loginbackground.jpg");
      /* Full height */
+ 
   height: 50%; 
 
   /* Center and scale the image nicely */
@@ -23,11 +24,14 @@
 
 .centered {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
+.bd{
+  position: relative;
+  text-align: center;
+}
 /* footer */
 
 p{

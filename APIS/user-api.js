@@ -108,7 +108,7 @@ userApiObj.post("/addtocart",verifyToken, errorHandler(async (req, res) => {
     else {
 
         console.log(cartObjFromDb.quantity)
-        let newLength = cartObjFromDb.quantity * 1
+        let newLength = cartObjFromDb.quantity + 1
 
         //newLength++
         console.log(newLength)
@@ -169,7 +169,7 @@ userApiObj.get("/getspeciality/:speciality", errorHandler(async(req,res) => {
 userApiObj.get('/getcount/:username', errorHandler(async (req, res) => {
     let count = 0;
     const cartObj = await Cart.find({ "username": req.params.username })
-    console.log(cartObj)
+    
     for (let x of cartObj) {
       count += x.quantity;
     }

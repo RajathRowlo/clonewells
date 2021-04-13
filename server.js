@@ -41,7 +41,7 @@ app.use((req,res,next) => {
     res.send({message:"error occurred", reason:err.message})
 })
 
-const port = process.env.PORT;
+const port = process.env.PORT||8080;
 //port listen on 1611
 app.listen(port, () => {
     console.log(`web server listening on port ${port}`)

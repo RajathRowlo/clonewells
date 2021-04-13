@@ -110,7 +110,7 @@ export class CartComponent implements OnInit {
     this.username = localStorage.getItem("username")
 
     let productObj = { "username": this.username, "dishid": product.dishid, "dishname": product.dishname, "dishprice": product.dishprice, "dishtype": product.dishtype, "restaurantname": product.restaurantname, "dishdescription": product.dishdescription, "photo": product.photo   }
-    console.log(productObj)
+    
     //add product to cart
     this.us.addProducttoCart(productObj).subscribe(
       res => {
@@ -135,7 +135,7 @@ export class CartComponent implements OnInit {
             }
 
             this.us.getCount(product.username).subscribe((res) => {
-                this.cs.setNum(res['message'] + 1 );
+                this.cs.setNum(res['message']  );
                });
         }
       },

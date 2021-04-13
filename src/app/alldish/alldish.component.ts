@@ -24,7 +24,7 @@ export class AlldishComponent implements OnInit {
       res =>{
         
         this.adishArray= res["message"]
-        console.log(this.adishArray)
+      
       },
       err =>{
         alert("error in dish")

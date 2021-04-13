@@ -43,7 +43,7 @@ dishApiObj.use(exp.json())
 
 
 //create dish //http://localhost:1611/dish/createdish
-dishApiObj.post("/createdish", upload.single('photo'), errorHandler(async(req,res) => {
+dishApiObj.post("/createdish", upload.single('photo'),verifyToken, errorHandler(async(req,res) => {
 
     req.body=JSON.parse(req.body.dishObj)
     req.body.photo=req.file.path;
@@ -90,19 +90,19 @@ dishApiObj.get("/getalldish", errorHandler(async (req,res) => {
 
 
 dishApiObj.post('/getdishid', errorHandler(async (req, res) => {
-    //   console.log(req.body)
+    
       let newDataObj = (req.body)
-      console.log(req.body)
+      
     //   console.log("recieved data",newDataObj)
      const product = await Dish.findOne({$and:[{username:req.body.username}, {dishid:req.body.dishid}]})
-    // console.log("Product is",product)
+    
         res.send({ message: product})
 })
 )
 
-dishApiObj.put("/updatedish", errorHandler(async(req,res) => {
+dishApiObj.put("/updatedish",verifyToken, errorHandler(async(req,res) => {
     
-    //console.log(req.body)
+    
 
     let result = await Dish.updateOne({$and:[{username:req.body.username}, {dishid:req.body.dishid}]}, {dishname:req.body.dishname, dishtype:req.body.dishtype, dishprice:req.body.dishprice, dishdescription:req.body.dishdescription})
     res.send({message:"Dish Updated"})
@@ -111,7 +111,7 @@ dishApiObj.put("/updatedish", errorHandler(async(req,res) => {
 dishApiObj.post("/deletedish", errorHandler(async(req,res) => {
 
     let result = await Dish.deleteOne({$and:[{username:req.body.username}, {dishid:req.body.dishid}]})
-    console.log(req.body)
+    
     res.send({message:"Deleted Succusfully"})
 }))
 

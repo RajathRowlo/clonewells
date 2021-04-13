@@ -20,7 +20,7 @@ export class UserdashboardComponent implements OnInit {
     this.Name=localStorage.getItem("username")
 
     let nameOrg = this.Name;
-    console.log(nameOrg)
+   
     this.Name = this.Name.charAt(0).toUpperCase() + this.Name.slice(1)
  
      this.us.getCount(nameOrg).subscribe(res=>{
