@@ -161,6 +161,20 @@ export class AlldishComponent implements OnInit {
       }
     )
   }
+  Desert(){
+    
+    let speciality = "Desert"
+    this.us.showSpeciality(speciality).subscribe(
+      res =>{
+        this.adishArray = res["message"]
+        console.log(this.adishArray)
+      },
+      err =>{
+        console.log(err)
+        alert("speciality fetch error")
+      }
+    )
+  }
 
   Softdrinks(){
     

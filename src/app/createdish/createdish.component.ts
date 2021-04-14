@@ -12,7 +12,7 @@ import { DishService } from '../dish.service';
 export class CreatedishComponent implements OnInit {
 
   //dish specialitiy options
-  Speciality= ["Starters","Main Course", "Accompaniment", "Desert", "Soft Drinks"]
+  Speciality= ["Starters","Main Course", "Accompaniment","Side dish", "Desert", "Soft Drinks"]
 
   username:string
   constructor(private dish: DishService, private router: Router, private toastr: ToastrService) { }
