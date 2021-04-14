@@ -46,7 +46,7 @@
             </div>
             <!-- Submit button -->
             <div class="form-group d-grid gap-2  mx-auto">
-                <button class="btn btn-primary mt-4" >Register</button>
+                <button class="btn btn-primary mt-4" [disabled]="form.invalid">Register</button>
             </div>
             <p class="text-center" (click)="navigate()" >Already have an account? <a href="">Login</a> </p>
         </div>

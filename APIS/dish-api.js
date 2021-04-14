@@ -100,14 +100,18 @@ dishApiObj.post('/getdishid', errorHandler(async (req, res) => {
 })
 )
 
-dishApiObj.put("/updatedish",verifyToken, errorHandler(async(req,res) => {
-    
-    
 
-    let result = await Dish.updateOne({$and:[{username:req.body.username}, {dishid:req.body.dishid}]}, {dishname:req.body.dishname, dishtype:req.body.dishtype, dishprice:req.body.dishprice, dishdescription:req.body.dishdescription})
+//update dish
+dishApiObj.put("/updatedish", errorHandler(async(req,res) => {
+    
+    let result = await Dish.updateOne({$and:[{username:req.body.uname},{dishid:req.body.dishid}]}, {dishname:req.body.dishname, dishtype:req.body.dishtype, dishprice:req.body.dishprice, dishdescription:req.body.dishdescription})
+    let updatedish = await Dish.findOne({username:req.body.uname,dishid:req.body.dishid})
+    
     res.send({message:"Dish Updated"})
 }))
 
+
+//delete dish
 dishApiObj.post("/deletedish", errorHandler(async(req,res) => {
 
     let result = await Dish.deleteOne({$and:[{username:req.body.username}, {dishid:req.body.dishid}]})

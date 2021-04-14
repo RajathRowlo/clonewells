@@ -10,24 +10,24 @@ import { DishService } from '../dish.service';
 })
 export class EditdishComponent implements OnInit {
 
-  constructor(private ar:ActivatedRoute, private dish:DishService, private toastr: ToastrService, private router:Router) { }
+  constructor(private ar: ActivatedRoute, private dish: DishService, private toastr: ToastrService, private router: Router) { }
   username: String
-  dishid:String 
+  dishid: String
   Dish: any
   ngOnInit(): void {
 
     this.ar.params.subscribe(
       res => {
-        this.username= res.username
-        
-        this.dishid= res.dishid
-        
-        let dishObj = {username:this.username, dishid:this.dishid}
-        
+        this.username = res.username
+
+        this.dishid = res.dishid
+
+        let dishObj = { username: this.username, dishid: this.dishid }
+
         this.dish.getDishId(dishObj).subscribe(
-          dish=>{
-            this.Dish=dish['message']
-            
+          dish => {
+            this.Dish = dish['message']
+
           }
         )
       },
@@ -37,24 +37,15 @@ export class EditdishComponent implements OnInit {
       }
     )
   }
-  onSubmit(formRef){
-    
+  onSubmit(formRef) {
+
     this.dish.updateDish(formRef.value).subscribe(
 
       res => {
-        if (res["message"] == "failed") {
-          alert(res["reason"])
-          //navigate to login
-          localStorage.clear()
-          this.router.navigateByUrl("/login")
-          
-        }
-        else{
         if(res["message"] ==  "Dish Updated"){
-        this.toastr.success("Dish Updated")
-        this.router.navigateByUrl("admindashboard/dish")
-        }
-      }
+          this.toastr.success("Dish Updated")
+          this.router.navigateByUrl("admindashboard/dish")
+          }
       },
       err => {
         this.toastr.error("Error in update")
