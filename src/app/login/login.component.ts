@@ -1,7 +1,10 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+// import * as EventEmitter from 'node:events';
+
 import { UserService } from '../user.service';
 
 @Component({
@@ -10,12 +13,16 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  // @Output() closeModalEvent = new EventEmitter<any>();
+   @ViewChild('closebutton') closebutton;
   constructor(private us: UserService, private router:Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
+  // public onSave() {
+  //   this.closebutton.nativeElement.click();
+  // }
   onSubmit(formRef) {
     let credObj = formRef.value;
 
@@ -70,7 +77,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-  navigate(){
-    
+  
+
+  move(){
+    this.router.navigateByUrl("/registration")
   }
 }

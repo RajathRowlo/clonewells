@@ -15,84 +15,89 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  form = new FormGroup ({
 
-    form = new FormGroup ({
+    //checkbox
+    usertype : new FormControl ('', []),
+    //username
+    username : new FormControl ('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(30)
+    ]),
 
-      //checkbox
-      usertype : new FormControl ('', []),
-      //username
-      username : new FormControl ('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(30)
-      ]),
+    //password
+    password : new FormControl ('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(15)
+    ]),
 
-      //password
-      password : new FormControl ('', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(15)
-      ]),
+    //email
+    email : new FormControl ('', [
+      Validators.required
+    ])
+  })
 
-      //email
-      email : new FormControl ('', [
-        Validators.required
-      ])
-    })
+  onsubmit(form) {
+    let userObj= form.value
+    //let adminObj=form.value
+    console.log(userObj)
+    if(userObj.usertype=="user"){
+      
 
-    onSubmit(form) {
-      let userObj= form.value
-      //let adminObj=form.value
-      console.log(userObj)
-      if(userObj.usertype=="user"){
-        
+   
+    this.us.createUser(userObj).subscribe(
+      res => {
+          this.toastr.success("user created sucessfully", 'title')
+          //navigate to login
+          this.router.navigateByUrl("/login")
+          //this.form.reset();
+          
+          // this.closeModalEvent.emit(false)
+          
 
-     
-      this.us.createUser(userObj).subscribe(
+      },
+      err => {
+        this.toastr.error("User creation error")
+        console.log(err)
+      }
+    )
+    }
+    else{
+      this.us.createAdmin(userObj).subscribe(
         res => {
-            this.toastr.success("user created sucussfully", 'title')
+            this.toastr.success("Admin created sucessfully")
             //navigate to login
-            this.form.reset();
             this.router.navigateByUrl("/login")
-
+  
         },
         err => {
-          this.toastr.error("User creation error")
+          this.toastr.error("Admin creation error")
           console.log(err)
         }
       )
-      }
-      else{
-        this.us.createAdmin(userObj).subscribe(
-          res => {
-              this.toastr.success("Admin created sucussfully")
-              //navigate to login
-              this.router.navigateByUrl("/login")
-    
-          },
-          err => {
-            this.toastr.error("Admin creation error")
-            console.log(err)
-          }
-        )
-    
-      }
+  
     }
+  }
 
-    navigate(){
-      this.router.navigateByUrl("/login")
-    }
+  navigate(){
+    this.router.navigateByUrl("/login")
+  }
 
-    get usertype () {
-      return this.form.get("usertype")
-    };
-    get username () {
-      return this.form.get("username")
-    };
-    get password () {
-      return this.form.get('password')
-    };
-    get email () {
-      return this.form.get('email')
-    };
+  get usertype () {
+    return this.form.get("usertype")
+  };
+  get username () {
+    return this.form.get("username")
+  };
+  get password () {
+    return this.form.get('password')
+  };
+  get email () {
+    return this.form.get('email')
+  };
+  
+ 
+   
 }
